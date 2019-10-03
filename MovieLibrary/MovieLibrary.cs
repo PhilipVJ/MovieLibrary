@@ -7,20 +7,20 @@ namespace MovieLibrary
 {
     public class MovieLibrary : IMovieLibrary
     {
-        List<MovieRating> movieRatings;
+        List<MovieRating> _movieRatings;
         public MovieLibrary(string fileName)
         {
             using (StreamReader r = new StreamReader(fileName))
             {
                 string json = r.ReadToEnd();
-                movieRatings = JsonConvert.DeserializeObject<List<MovieRating>>(json);
+                _movieRatings = JsonConvert.DeserializeObject<List<MovieRating>>(json);
             }
         }
         public double AverageRatingByReviewer(int id)
         {
             int count = 0;
             int sum = 0;
-            foreach (var rat in movieRatings)
+            foreach (var rat in _movieRatings)
             {
                 if (rat.Reviewer == id)
                 {
@@ -40,7 +40,7 @@ namespace MovieLibrary
             int counter = 0;
             int sum = 0;
 
-            foreach (var movRep in movieRatings)
+            foreach (var movRep in _movieRatings)
             {
                 if (movRep.Movie == movieId)
                 {
@@ -59,7 +59,7 @@ namespace MovieLibrary
         {
             Dictionary<int, int> movDic = new Dictionary<int, int>();
             // Adds all 5 rated movies to the dictionary - and counts
-            foreach (var movRat in movieRatings)
+            foreach (var movRat in _movieRatings)
             {
                 if (movRat.Grade == 5)
                 {
@@ -98,7 +98,7 @@ namespace MovieLibrary
         public int[] GetReviewedMoviesByReviewer(int reviewerId)
         {
             List<MovieRating> movRat = new List<MovieRating>();
-            foreach (var item in movieRatings)
+            foreach (var item in _movieRatings)
             {
                 if (item.Reviewer == reviewerId)
                 {
@@ -118,7 +118,7 @@ namespace MovieLibrary
         public int[] GetReviewersByMovieId(int movieId)
         {
             List<MovieRating> ratings = new List<MovieRating>();
-            foreach (var item in movieRatings)
+            foreach (var item in _movieRatings)
             {
                 if(item.Movie == movieId)
                 {
@@ -143,7 +143,7 @@ namespace MovieLibrary
         {
             Dictionary<int, int> rewDic = new Dictionary<int, int>();
             // Adds all 5 rated movies to the dictionary - and counts
-            foreach (var movRat in movieRatings)
+            foreach (var movRat in _movieRatings)
             {
 
                 if (rewDic.ContainsKey(movRat.Reviewer))
@@ -181,7 +181,7 @@ namespace MovieLibrary
         public int[] GetTopXMovies(int x)
         {
             Dictionary<int, MovieAverager> movDic = new Dictionary<int, MovieAverager>();
-            foreach (var movie in movieRatings)
+            foreach (var movie in _movieRatings)
             {
                 if (movDic.ContainsKey(movie.Movie))
                 {
@@ -217,7 +217,7 @@ namespace MovieLibrary
         {
             int counter = 0;
 
-            foreach (var movRat in movieRatings)
+            foreach (var movRat in _movieRatings)
             {
                 if (movRat.Reviewer == reviewerId && movRat.Grade == grade)
                 {
@@ -230,7 +230,7 @@ namespace MovieLibrary
         public int NumberOfReviews(int movieId)
         {
             int counter = 0;
-            foreach (var mov in movieRatings)
+            foreach (var mov in _movieRatings)
             {
                 if (mov.Movie == movieId)
                 {
@@ -243,7 +243,7 @@ namespace MovieLibrary
         public int NumberOfReviewsByReviewer(int id)
         {
             int count = 0;
-            foreach (var movRat in movieRatings)
+            foreach (var movRat in _movieRatings)
             {
 
                 if (movRat.Reviewer == id)
@@ -257,7 +257,7 @@ namespace MovieLibrary
         public int NumberOfSpecificRatingsForMovie(int grade, int movieId)
         {
             int counter = 0;
-            foreach (var movRat in movieRatings)
+            foreach (var movRat in _movieRatings)
             {
                 if (movRat.Movie == movieId && movRat.Grade == grade)
                 {
