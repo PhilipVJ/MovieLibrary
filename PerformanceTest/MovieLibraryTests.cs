@@ -92,9 +92,7 @@ namespace MovieLibrary.Tests
 
         public long Timer(Action method, int iterations)
         {
-            method.Invoke();
             long totalTime = 0;
-
             for (int i = 0; i < iterations; i++)
             {
                 Stopwatch watch = new Stopwatch();
